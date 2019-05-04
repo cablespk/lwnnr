@@ -12,9 +12,6 @@ library(rvest)
 output_lwnn_basic_dmb("F:/Documents/LWNN/dmb.xlsx")
 output_unsigned("F:/Documents/LWNN/unsigned.xlsx")
 
-
-
-
 # Create injury report list
 payload <- read_html("http://www.milb.com/milb/stats/stats.jsp?t=l_trn&lid=122&sid=l122")
 leaders <- payload %>%
