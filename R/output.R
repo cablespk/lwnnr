@@ -71,7 +71,7 @@ output_lwnn_unsigned <- function(file_name) {
 		add_zips_reduced() %>%
 		add_current_season_reduced() %>%
 		add_draft_2018() %>%
-		filter(is.na(lwnn))
+		filter(is.na(lwnn) & Team_2019 != "Mexican (AAA)")
 
 	pitchers <- players_all %>%
 		filter(type=="pitcher") %>%
@@ -79,7 +79,8 @@ output_lwnn_unsigned <- function(file_name) {
 			  IP_2019,FV,ETA,Risk,draft_2018,
 			  IP,ERA,FIP,K.9,BB.9,OPS_LHB,
 			  OPS_RHB,G.GF,STA_SP,STA_RP
-		)
+		) %>%
+		arrange(FIP_2019)
 
 	hitters <- players_all %>%
 		filter(type=="hitter") %>%
@@ -88,7 +89,8 @@ output_lwnn_unsigned <- function(file_name) {
 			  AB,wOBA,OBP,SLG,STL,OPS_LHP,OPS_RHP,
 			  X1B.RN,X1B.ER,X2B.RN,X2B.ER,X3B.RN,X3B.ER,
 			  SS.RN,SS.ER,LF.RN,LF.ER,CF.RN,CF.ER,RF.RN,
-			  RF.ER,OF.ARM,C.RN,C.ER,C.ARM,PB)
+			  RF.ER,OF.ARM,C.RN,C.ER,C.ARM,PB) %>%
+		arrange(-wOBA_2019)
 
 	excel_wb <- createWorkbook()
 	addWorksheet(excel_wb,"Pitchers")
