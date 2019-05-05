@@ -10,7 +10,7 @@ library(rvest)
 
 #update_current_year_stats()
 output_lwnn_basic("F:/Documents/LWNN/dmb.xlsx")
-#output_unsigned("F:/Documents/LWNN/unsigned.xlsx")
+output_lwnn_unsigned("F:/Documents/LWNN/unsigned.xlsx")
 
 # Create injury report list
 payload <- read_html("http://www.milb.com/milb/stats/stats.jsp?t=l_trn&lid=122&sid=l122")
