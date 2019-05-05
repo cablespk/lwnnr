@@ -142,7 +142,8 @@ load_salaries <- function() {
   	format_names() %>%
   	mutate_at(vars(starts_with("salary")),funs(as.numeric)) %>%
   	select(name,team,salary_2019) %>%
-  	mutate(lwnn=1)
+  	mutate(lwnn=1) %>%
+  	add_fangraph_ids()
 
   return(team_salaries)
 }
