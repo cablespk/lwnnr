@@ -57,7 +57,7 @@ add_fangraph_ids <- function(data_initial) {
 
 	fangraph_ids <- coalesce_join(deduped_current,deduped_historic,by="name")
 
-	#write.csv(fangraph_ids,file="F:/Documents/LWNN/fangraphs/current_fangraph_ids.csv",row.names=FALSE)
+	write.csv(fangraph_ids,file="F:/Documents/LWNN/fangraphs/current_fangraph_ids.csv",row.names=FALSE)
 
   data_w_ids <- data_initial %>%
   	left_join(fangraph_ids,by="name") %>%

@@ -4,10 +4,10 @@
 \alias{output_lwnn_unsigned}
 \title{Output LWNN Unsigned}
 \usage{
-output_lwnn_unsigned(file_name)
+output_lwnn_unsigned(file_name, comparison_date)
 }
 \arguments{
-\item{file_name}{}
+\item{comparison_date}{}
 }
 \description{
 Output LWNN Unsigned

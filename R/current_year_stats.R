@@ -155,4 +155,58 @@ update_current_year_stats <- function() {
   write.csv(pitchers_mlb,file=paste0("F:/Documents/LWNN/fangraphs/pitchers_mlb_",Sys.Date(),".csv"))
 }
 
+#' Add Previous Stats
+#'
+#' @param comparison_date
+#'
+#' @return
+#' @export
+#'
+#' @examples
+add_prev_stats <- function(comparison_date) {
+  pitchers_prev_mlb <- read.csv(file=paste0("F:/Documents/LWNN/fangraphs/pitchers_mlb_",comparison_date,".csv"), stringsAsFactors = FALSE) %>%
+  	rename(fangraph_id=playerid,
+  		  FIP_prev=FIP) %>%
+  	select(fangraph_id,FIP_prev) %>%
+  	mutate(fangraph_id=as.character(fangraph_id))
+  pitchers_prev_minors <- read.csv(file=paste0("F:/Documents/LWNN/fangraphs/pitchers_minors_",comparison_date,".csv"), stringsAsFactors = FALSE) %>%
+  	rename(fangraph_id=playerid,
+  		  FIP_prev=FIP) %>%
+  	select(fangraph_id,FIP_prev)
+  hitters_prev_mlb <- read.csv(file=paste0("F:/Documents/LWNN/fangraphs/hitters_mlb_",comparison_date,".csv"), stringsAsFactors = FALSE) %>%
+  	rename(fangraph_id=playerid,
+  		  wOBA_prev=wOBA) %>%
+  	select(fangraph_id,wOBA_prev) %>%
+  	mutate(fangraph_id=as.character(fangraph_id))
+  hitters_prev_minors <- read.csv(file=paste0("F:/Documents/LWNN/fangraphs/hitters_minors_",comparison_date,".csv"), stringsAsFactors = FALSE) %>%
+  	rename(fangraph_id=playerid,
+  		  wOBA_prev=wOBA) %>%
+  	select(fangraph_id,wOBA_prev)
+  prev_stats <- pitchers_prev_mlb %>%
+  	coalesce_join(pitchers_prev_minors,by="fangraph_id") %>%
+  	coalesce_join(hitters_prev_mlb,by="fangraph_id") %>%
+  	coalesce_join(hitters_prev_minors,by="fangraph_id") %>%
+  	mutate(comparison_date=comparison_date)
+}
+
+#' Add Comparison Stats
+#'
+#' @param player_df_initial
+#' @param comparison_date
+#'
+#' @return
+#' @export
+#'
+#' @examples
+add_comparison_stats <- function(player_df_initial,comparison_date) {
+	comp_date <- comparison_date
+  previous_stats <- add_prev_stats(comp_date)
+  comparison_added_df <- player_df_initial %>%
+  	left_join(previous_stats,by="fangraph_id") %>%
+  	mutate(FIP_Change = FIP_2019 - FIP_prev,
+  		  wOBA_Change = wOBA_2019 - wOBA_prev)
+  return(comparison_added_df)
+}
+
+
 

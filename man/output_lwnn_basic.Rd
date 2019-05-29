@@ -2,13 +2,13 @@
 % Please edit documentation in R/output.R
 \name{output_lwnn_basic}
 \alias{output_lwnn_basic}
-\title{Output LWNN Basic}
+\title{LWNN Basic Output}
 \usage{
-output_lwnn_basic(file_name)
+output_lwnn_basic(file_name, comparison_date)
 }
 \arguments{
-\item{file_name}{}
+\item{comparison_date}{}
 }
 \description{
-Output LWNN Basic
+LWNN Basic Output
 }
